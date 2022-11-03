@@ -30,7 +30,39 @@
                       el.replaceWith('<span class="themeNavTrigger comm-navigation__mobile-trigger" style="display: block;" data-aura-rendered-by="461:0">' + el.html() + '</span>');
                     }
                 },
-                
+                // inject attribute aria-label to FC image
+                {
+                    selector: '.socialOptionsContainer .socialOption a .uiImage img',
+                    test: function(el) {
+                        return el.parent().is('img');
+                    },
+                    action: function(el) {
+                        el.attr('aria-label',"S\'identifier avec FranceConnect");
+                        //console.log('the el value mays testing', el);
+                       //var mouseOver = "this.src='https://digithall-agefiph--int--c.documentforce.com/servlet/servlet.ImageServer?id=0155t0000007GUq&oid=00D5t0000008gKu&lastMod=1664270036000'"; 
+                       //var onmouseOut = "this.src='https://digithall-agefiph--int--c.documentforce.com/servlet/servlet.ImageServer?id=0155t0000006FPi&oid=00D5t0000008gKu&lastMod=1663922502000'";
+					   //el.attr({onmouseover: mouseOver, onmouseout: onmouseOut});
+                       //the code below also works as above
+                        //el.on("mouseover", function(){
+                            //$(this).attr("src", "https://digithall-agefiph--int--c.documentforce.com/servlet/servlet.ImageServer?id=0155t0000007GUq&oid=00D5t0000008gKu&lastMod=1664270036000")
+                        //});
+                        //el.on("mouseout", function(){
+                            //$(this).attr("src", "https://digithall-agefiph--int--c.documentforce.com/servlet/servlet.ImageServer?id=0155t0000006FPi&oid=00D5t0000008gKu&lastMod=1663922502000");
+                        //});
+                    }
+                },
+                // replacing button tag under search bar with div tag
+                {
+                    selector: 'button.search-deflectionItemSearchIcon',
+                    test: function(el) {
+                        //console.log('the el value of mays div', el.parent());
+                        return el.parent().is('button');
+                    },
+                    action: function(el) {
+                        //console.log('the el value of div', el);
+                        el.replaceWith('<div title="Rechercher" class="slds-button slds-button_icon search-deflectionItemSearchIcon slds-button_icon-border">'+ el.html() +'</div>');
+                    }
+                },
                 // Title sur les liens
                 {
                     selector: '.viewAllLink a',
@@ -117,7 +149,9 @@
 					},
 					action: function(el){
                         var elWidth = el.outerWidth();
-                        el.wrap('<main role="main"></main>').parent().css({width:elWidth, margin:'0 auto'});
+                        var getHero = document.getElementsByClassName('hero');
+                        console.log('here i am', getHero);
+                        el.wrap('<main role="main" id="main"></main>').parent().css({width:elWidth, margin:'0 auto'}).append(getHero);
 					}
 				},
                 
@@ -283,7 +317,7 @@
 				},   
                 
                 // 3.13
-               /* {
+                /*{
 					selector : '.comm-user-profile-menu',
                		test : function(el){						
                       
